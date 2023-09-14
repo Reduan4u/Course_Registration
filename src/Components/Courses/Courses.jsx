@@ -1,26 +1,26 @@
-import { useEffect } from "react";
-import Cart from "../Cart/Cart";
+import { useEffect, useState } from "react";
 import Course from "../Course/Course";
 
 const Courses = () => {
-    const [course, setCourse] = ([]);
+    const [courses, setCourses] = useState([]);
 
     useEffect(() => {
         fetch('courses.json')
             .then(res => res.json())
-            .then(data => setCourse(data));
+            .then(data => setCourses(data))
     }, [])
 
     return (
 
-        <div className="grid grid-cols-4">
-            <div className="col-span-3 bg-blue-400">
-                <Course></Course>
-            </div>
-            <div className="col-span-1 bg-red-400">
-                <Cart></Cart>
-            </div>
+        <div className="grid grid-cols-3 gap-3" >
+            {
+                courses.map(course => <Course
+                    key={course.id}
+                    course={course}
+                ></Course>)
+            }
         </div>
+
     );
 };
 

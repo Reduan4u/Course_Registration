@@ -1,5 +1,3 @@
-import './App.css'
-import Header from './Components/Header/Header'
 import Courses from './Components/Courses/Courses'
 import Carts from './Components/Carts/Carts'
 import { useState } from 'react'
@@ -40,7 +38,7 @@ function App() {
     }
     else {
       Swal.fire({
-        position: 'middle',
+        position: 'center',
         icon: 'success',
         title: 'Course Added to The Cart',
         showConfirmButton: false,
@@ -58,14 +56,14 @@ function App() {
   return (
     <>
       <div className='w-11/12  m-auto max-w-7xl my-10'>
-        <Header></Header>
+        <h1 className="text-4xl font-bold text-center my-8">Course Registration</h1>
 
-        <div className="grid grid-cols-4 gap-4">
-          <div className="col-span-3">
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
+          <div className="lg:col-span-3 md:col-span-2 col-span-1">
             <Courses handleSelect={handleSelect}></Courses>
           </div>
 
-          <div className="col-span-1">
+          <div className="lg:col-span-1 md:col-span-1 col-span-1">
             <Carts cartedCourses={cartedCourses} creditHour={creditHour}
               creditHourRemaining={creditHourRemaining}
               totalPrice={totalPrice}

@@ -1,28 +1,56 @@
-
 import './App.css'
 import Header from './Components/Header/Header'
 import Courses from './Components/Courses/Courses'
 import Carts from './Components/Carts/Carts'
 import { useState } from 'react'
+import Swal from 'sweetalert2';
+import PropTypes from 'prop-types';
+
 
 function App() {
   const [cartedCourses, setCartedCourses] = useState([]);
-  const [creditHour, setCreditHour] = useState(0)
+  const [creditHour, setCreditHour] = useState(parseInt("00", 10));
   const [creditHourRemaining, setCreditHourRemaining] = useState(20)
+  const [totalPrice, setTotalPrice] = useState(0)
 
 
-  const handleSelect = (credit, course) => {
+  const handleSelect = (credit, course, price) => {
     const selectedCourses = [...cartedCourses, course];
-    const creditNumber = parseFloat(credit)
+    const creditNumber = parseFloat(credit);
     const newCreditHour = (creditHour + creditNumber);
     const newCreditHourRemaining = (creditHourRemaining - creditNumber)
-    if (newCreditHour > 20) {
-      alert("hello")
+    const priceNumber = parseFloat(price);
+    const newTotalPrice = (totalPrice + priceNumber);
+
+    if (cartedCourses.find(item => item === course)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Already Selected',
+        text: 'Please, try other Courses',
+        footer: '<a href="">Want To Restart</a>'
+      })
+    }
+    else if (newCreditHour > 20) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Credit Hour Limit Crossed',
+        text: 'Please, try other Courses',
+        footer: '<a href="">Want to Restart</a>'
+      })
     }
     else {
+      Swal.fire({
+        position: 'middle',
+        icon: 'success',
+        title: 'Course Added to The Cart',
+        showConfirmButton: false,
+        timer: 1500
+      })
       setCreditHour(newCreditHour);
       setCartedCourses(selectedCourses);
       setCreditHourRemaining(newCreditHourRemaining);
+      setTotalPrice(newTotalPrice);
+
     }
 
   }
@@ -39,7 +67,9 @@ function App() {
 
           <div className="col-span-1">
             <Carts cartedCourses={cartedCourses} creditHour={creditHour}
-              creditHourRemaining={creditHourRemaining}></Carts>
+              creditHourRemaining={creditHourRemaining}
+              totalPrice={totalPrice}
+            ></Carts>
           </div>
 
         </div>
@@ -49,4 +79,7 @@ function App() {
   )
 }
 
+App.propTypes = {
+  Swal: PropTypes.func
+}
 export default App

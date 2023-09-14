@@ -4,9 +4,7 @@ const Cart = ({ cartedCourse }) => {
     const { title } = cartedCourse;
 
     return (
-        <div>
-            <ol>{title}</ol>
-        </div>
+        <li>{title}</li>
     );
 };
 

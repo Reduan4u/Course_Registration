@@ -4,7 +4,7 @@ import Cart from '../Cart/Cart';
 const Carts = ({ cartedCourses, creditHour, creditHourRemaining, totalPrice }) => {
 
     return (
-        <div className="card bg-base-100 shadow-xl px-4 sticky top-1/4">
+        <div className="card bg-base-100 shadow-xl px-4 sticky top-10">
             <h1 className="mt-6 mb-4 text-blue-500 font-bold text-lg">Credit Hour Remaining: <strong>{creditHourRemaining} hr</strong></h1>
             <hr />
             <h1 className="mt-4 mb-5 text-xl font-bold">Courses: <strong>{cartedCourses.length}</strong> </h1>
